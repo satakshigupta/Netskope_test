@@ -27,13 +27,6 @@ jobs:
             exit 1  # Fail the job if critical issues are found
           else
             echo "Bandit scan successful! No critical vulnerabilities found."
-            jobs:
-              automerge:
-                runs-on: ubuntu-latest
-                steps:
-                  - id: automerge
-                    name: automerge
-                    uses: "pascalgn/automerge-action@v0.16.2"
           fi
 
 
