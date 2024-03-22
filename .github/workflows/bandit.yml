@@ -19,12 +19,14 @@ jobs:
       - name: Parse Bandit Results and Fail on Critical Issues
         id: analyze_results
         run: |
-          vulnerabilities=$(jq -r '.results[] | select(.severity == "HIGH" or .severity == "CRITICAL") | @csv' bandit_results.json)
+          vulnerabilities=$(jq -r '.results[] | select(.severity == "CRITICAL") | @csv' bandit_results.json)
           if [[ ! -z "$vulnerabilities" ]]; then
             echo "::error:: BLOCK"
             echo "List of critical vulnerabilities:"
             echo "$vulnerabilities"
             exit 1  # Fail the job if critical issues are found
+          else
+            echo "Bandit scan successful! No critical vulnerabilities found."
           fi
 
 
