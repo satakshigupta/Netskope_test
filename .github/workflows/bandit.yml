@@ -2,7 +2,7 @@ name: Bandit Code Scanning and Blocking (Public Repo)
 
 on:
   pull_request:
-    branches: [ main ]  # Adjust the protected branch name if needed
+    branches: [ main ]  # Adjust the protected branch name if needed 
 
 jobs:
   bandit-scan:
