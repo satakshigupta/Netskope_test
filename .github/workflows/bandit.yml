@@ -34,4 +34,4 @@ jobs:
       - name: Placeholder Step (No action needed)
         run: |
           echo "This job serves as a placeholder for the required check in branch protection rules."
-          # No actions required here
+          # No actions required herem
