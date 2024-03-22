@@ -1,0 +1,37 @@
+name: Bandit Code Scanning and Blocking (Public Repo)
+
+on:
+  pull_request:
+    branches: [ main ]  # Adjust the protected branch name if needed
+
+jobs:
+  bandit-scan:
+    name: Run Bandit Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Bandit
+        run: |
+          python -m pip install bandit
+      - name: Run Bandit Scan
+        run: bandit -f json -o bandit_results.json .
+
+      - name: Parse Bandit Results and Fail on Critical Issues
+        id: analyze_results
+        run: |
+          vulnerability_count=$(jq '.results | length' bandit_results.json)
+          if [[ $vulnerability_count -gt 0 ]]; then
+            echo "::error:: Critical vulnerabilities found in Bandit scan. Fix required before merging."
+            exit 1  # Fail the job if critical issues are found
+          fi
+
+  # No upload step needed, as blocking happens within the job
+
+  check-results:  # This job serves as a placeholder for the required check
+    needs: bandit-scan  # This job depends on the bandit-scan job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder Step (No action needed)
+        run: |
+          echo "This job serves as a placeholder for the required check in branch protection rules."
+          # No actions required here
