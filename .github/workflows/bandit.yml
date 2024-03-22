@@ -28,15 +28,3 @@ jobs:
           else
             echo "Bandit scan successful! No critical vulnerabilities found."
           fi
-
-
-  # No upload step needed, as blocking happens within the job
-
-  check-results:  # This job serves as a placeholder for the required check
-    needs: bandit-scan  # This job depends on the bandit-scan job
-    runs-on: ubuntu-latest
-    steps:
-      - name: Placeholder Step (No action needed)
-        run: |
-          echo "This job serves as a placeholder for the required check in branch protection rules."
-          # No actions required herem
